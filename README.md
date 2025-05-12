@@ -1,19 +1,21 @@
 ## Project Structure
 
 ```
-KnowledgeFlowProject/
-├── Presentation/          # Web API (Controllers, DTOs)
+KnowledgeFlow/
+├── KnowledgeFlowApi/ (Presentation)
 │   ├── Controllers/
 │   ├── Program.cs
-│   └── Presentation.csproj
-├── Application/           # Business logic
+│   └── appsettings.json
+├── KnowledgeFlowApi.Application/
 │   ├── Services/
 │   ├── Interfaces/
-│   ├── Models/
-│   └── Application.csproj
-├── Infrastructure/        # Data access
-│   ├── Repositories/
+│   ├── Models/ (DTOs)
+│   └── Enums/
+├── KnowledgeFlowApi.Infrastructure/
 │   ├── Data/
-│   └── Infrastructure.csproj
+│   │   └── ApplicationDbContext.cs
+│   ├── Entities/
+│   ├── Repositories/
+│   └── Interfaces/
 └── KnowledgeFlow.sln
 ```
