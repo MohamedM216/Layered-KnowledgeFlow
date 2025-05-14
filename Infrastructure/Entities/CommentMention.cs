@@ -1,3 +1,4 @@
+namespace Infrastructure.Entities;
 public class CommentMention
 {
     public int Id { get; set; }

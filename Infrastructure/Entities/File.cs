@@ -1,3 +1,4 @@
+namespace Infrastructure.Entities;
 public class File
 {
     public int Id { get; set; }

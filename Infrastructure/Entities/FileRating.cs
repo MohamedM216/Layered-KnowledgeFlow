@@ -1,3 +1,4 @@
+namespace Infrastructure.Entities;
 public class FileRating
 {
     public int Id { get; set; }

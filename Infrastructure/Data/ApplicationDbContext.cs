@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-
+using Infrastructure.Entities;
 public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
@@ -7,7 +7,7 @@ public class AppDbContext : DbContext
     }
     
     public DbSet<User> Users { get; set; }
-    public DbSet<File> Files { get; set; }
+    public DbSet<Infrastructure.Entities.File> Files { get; set; }
     public DbSet<UserRating> UserRatings { get; set; }
     public DbSet<FileRating> FileRatings { get; set; }
     public DbSet<Comment> Comments { get; set; }
@@ -44,7 +44,7 @@ public class AppDbContext : DbContext
             .IsUnique();
             
         // Set up relationships
-        modelBuilder.Entity<File>()
+        modelBuilder.Entity<Infrastructure.Entities.File>()
             .HasOne(f => f.Author)
             .WithMany(u => u.Files)
             .HasForeignKey(f => f.AuthorId)

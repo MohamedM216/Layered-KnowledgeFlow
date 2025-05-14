@@ -1,3 +1,4 @@
+namespace Infrastructure.Entities;
 public class UserRating
 {
     public int Id { get; set; }
