@@ -11,6 +11,7 @@ public class AppDbContext : DbContext
     public DbSet<UserRating> UserRatings { get; set; }
     public DbSet<FileRating> FileRatings { get; set; }
     public DbSet<Comment> Comments { get; set; }
+    public DbSet<CommentMention> CommentMentions { get; set; }
     public DbSet<UserReview> UserReviews { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -84,6 +85,25 @@ public class AppDbContext : DbContext
             .WithMany(f => f.Comments)
             .HasForeignKey(c => c.FileId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        // Comment reply relationship (self-referencing)
+        modelBuilder.Entity<Comment>()
+            .HasOne(c => c.ParentComment)
+            .WithMany(c => c.Replies)
+            .HasForeignKey(c => c.ParentCommentId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        modelBuilder.Entity<CommentMention>()
+            .HasOne(cm => cm.Comment)
+            .WithMany(c => c.Mentions)
+            .HasForeignKey(cm => cm.CommentId)
+            .OnDelete(DeleteBehavior.Cascade);
+            
+        modelBuilder.Entity<CommentMention>()
+            .HasOne(cm => cm.MentionedUser)
+            .WithMany()
+            .HasForeignKey(cm => cm.MentionedUserId)
+            .OnDelete(DeleteBehavior.Restrict);
             
         modelBuilder.Entity<UserReview>()
             .HasOne(ur => ur.Reviewer)
