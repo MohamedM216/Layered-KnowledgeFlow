@@ -1,41 +1,20 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 public class User
 {
-    [Key]
     public int Id { get; set; }
-    [Required]
     public string Username { get; set; }
-    [Required]
     public string Email { get; set; }
-    public string Role { get; set; }
-    public string? Bio { get; set; }
-    public string? ContactEmail { get; set; }
-    [Required]
-    public string Password { get; set; }    // hashed password
-    [Required]
-    public DateTime MembershipDate { get; set; }
-    public decimal? TotalRating { get; set; }
-    public bool IsBanned { get; set; } // Indicates if the user is currently banned
+    public string PasswordHash { get; set; } // Store hashed passwords only!
+    public string ContactEmail { get; set; }
+    public string ProfileImagePath { get; set; }
+    public string Bio { get; set; }
+    public DateTime MembershipDate { get; set; } = DateTime.UtcNow;
     
-
-    public UserProfileImage? UserProfileImage { get; set; }
-    public ICollection<FileItem>? FileItems { get; set; }
+    // Navigation properties
+    public ICollection<File> Files { get; set; }
+    public ICollection<UserRating> RatingsGiven { get; set; }
+    public ICollection<UserRating> RatingsReceived { get; set; }
     public ICollection<FileRating> FileRatings { get; set; }
-    public ICollection<UserRating> UserRatings { get; set; }
-    public ICollection<UserRefreshToken>? UserRefreshTokens { get; set; }
-
-    // A user can rate multiple users
-    [JsonIgnore]
-    public ICollection<UserRating> GivenUserRatings { get; set; } = new List<UserRating>();
-    // A user can receive multiple ratings
-    public ICollection<UserRating> ReceivedUserRatings { get; set; } = new List<UserRating>();
     public ICollection<Comment> Comments { get; set; }
-
-    public ICollection<Report> ReportsSubmitted { get; set; }
-    public ICollection<Report> ReportsAgainst { get; set; }
-    public ICollection<UserViolation> Violations { get; set; }
-    public ICollection<Ban> Bans { get; set; }
-    
+    public ICollection<UserReview> ReviewsGiven { get; set; }
+    public ICollection<UserReview> ReviewsReceived { get; set; }
 }
